@@ -1,9 +1,9 @@
 import React from 'react';
-
+import TabBar from './demo/TabBar'
 function App() {
   return (
     <div className="App">
-      首页
+      <TabBar></TabBar>
     </div>
   );
 }
