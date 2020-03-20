@@ -1,6 +1,10 @@
 import React from 'react'
 import { TabBar } from 'antd-mobile';
-
+import { Route } from "react-router-dom";
+import Index from "../index/index";
+import List from "../list";
+import News from "../news";
+import Mind from "../mind";
 class TabBarExample extends React.Component {
     constructor(props) {
       super(props);
@@ -37,7 +41,8 @@ class TabBarExample extends React.Component {
                 });
               }}
             >
-              {this.renderContent('Life')}
+              {/* {this.renderContent('Life')} */}
+              <Route path='/home' component={Index}></Route>
             </TabBar.Item>
             <TabBar.Item
               icon={<i className='iconfont icon-findHouse'></i>}
@@ -51,7 +56,8 @@ class TabBarExample extends React.Component {
                 });
               }}
             >
-              {this.renderContent('Koubei')}
+              {/* {this.renderContent('Koubei')} */}
+              <Route path='/home/list' component={List}></Route>
             </TabBar.Item>
             <TabBar.Item
               icon={<i className='iconfont icon-infom'></i>}
@@ -65,7 +71,8 @@ class TabBarExample extends React.Component {
                 });
               }}
             >
-              {this.renderContent('Friend')}
+              {/* {this.renderContent('Friend')} */}
+              <Route path='/home/news' component={News}></Route>
             </TabBar.Item>
             <TabBar.Item
               icon={<i className='iconfont icon-my'></i>}
@@ -79,7 +86,8 @@ class TabBarExample extends React.Component {
                 });
               }}
             >
-              {this.renderContent('My')}
+              {/* {this.renderContent('My')} */}
+              <Route path='/home/mind' component={Mind}></Route>
             </TabBar.Item>
           </TabBar>
         </div>

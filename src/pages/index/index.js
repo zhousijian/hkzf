@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-class Home extends Component {
+class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
@@ -8,10 +8,10 @@ class Home extends Component {
     render() { 
         return ( 
             <div>
-                home首页
+                home-Index首页
             </div>
          );
     }
 }
  
-export default Home;
+export default Index;
