@@ -6,7 +6,6 @@ class TabBarExample extends React.Component {
       super(props);
       this.state = {
         selectedTab: 'blueTab',
-        hidden: false,
       };
     }
   
@@ -25,7 +24,6 @@ class TabBarExample extends React.Component {
             unselectedTintColor="#949494"
             tintColor="rgb(33, 185, 122)"
             barTintColor="white"
-            hidden={this.state.hidden}
           >
             <TabBar.Item
               title="首页"
