@@ -71,4 +71,42 @@
     }
   }
 
+  .news {
+    padding: 10px;
+    background-color: #fff;
+    h3 {
+      padding: 10px;
+    }
+  
+    .news_item {
+      display: flex;
+      padding: 10px 0;
+      margin: 0 10px;
+      border-bottom: 1px solid #ccc;
+      .news_item_left {
+        img {
+          margin-right: 10px;
+          width: 120px;
+          height: 90px;
+        }
+      }
+  
+      .news_item_right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .news_item_right_top {
+          font-weight: 600;
+        }
+  
+        .news_item_right_bottom {
+          display: flex;
+          justify-content: space-between;
+          span {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
 }

@@ -11,7 +11,8 @@ class Index extends Component {
         super(props);
         this.state = {
             data: [],
-            groupsImg: []
+            groupsImg: [],
+            newsData: []
         }
     }
     componentDidMount() {
@@ -31,6 +32,15 @@ class Index extends Component {
             const { body } = res.data
             this.setState({
                 groupsImg: body
+            })
+        })
+        axios({
+            url: '/home/news'
+        }).then(res => {
+            // console.log(res);
+            const { body } = res.data
+            this.setState({
+                newsData: body
             })
         })
     }
@@ -87,11 +97,30 @@ class Index extends Component {
                                     <span>{v.desc}</span>
                                 </div>
                                 <div className={index.content_item_right}>
-                                    <img src={baseURL+v.imgSrc} alt="" />
+                                    <img src={baseURL + v.imgSrc} alt="" />
                                 </div>
                             </div>
                         })}
                     </div>
+                </div>
+                {/* 最新资讯 */}
+                <div className={index.news}>
+                    <h3>最新资讯</h3>
+                    {this.state.newsData.map(v => {
+                        return <div className={index.news_item} key={v.id}>
+                            <div className={index.news_item_left}>
+                                <img src={baseURL+v.imgSrc} alt="" />
+                            </div>
+                            <div className={index.news_item_right}>
+                    <div className={index.news_item_right_top}>{v.title}</div>
+                                <div className={index.news_item_right_bottom}>
+                                    <span>{v.from}</span>
+                                    <span>{v.date}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    })}
                 </div>
             </div>
         );
