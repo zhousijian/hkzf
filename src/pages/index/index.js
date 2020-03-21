@@ -10,6 +10,7 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            imgHeight : 176,
             data: [],
             groupsImg: [],
             newsData: []
@@ -54,12 +55,23 @@ class Index extends Component {
                         infinite
                     >
                         {this.state.data.map(val => (
+                            <a
+                            key={val}
+                            href="http://www.alipay.com"
+                            style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                          >
                             <img
                                 key={val.id}
                                 src={baseURL + val.imgSrc}
                                 alt=""
                                 style={{ width: '100%', verticalAlign: 'top' }}
+                                onLoad={() => {
+                                    // fire window resize event to change height
+                                    window.dispatchEvent(new Event('resize'));
+                                    this.setState({ imgHeight: 'auto' });
+                                  }}
                             />
+                            </a>
                         ))}
                     </Carousel>}
                 </div>
