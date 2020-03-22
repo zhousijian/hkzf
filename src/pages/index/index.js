@@ -6,6 +6,7 @@ import nav1 from '../../assets/images/nav-1.png'
 import nav2 from '../../assets/images/nav-2.png'
 import nav3 from '../../assets/images/nav-3.png'
 import nav4 from '../../assets/images/nav-4.png'
+import CityInput from "../../components/cityInput";
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -50,6 +51,9 @@ class Index extends Component {
             <div className={index.home_index}>
                 {/* 轮播图 */}
                 <div className={index.carousel}>
+                    <div className={index.cityinput}>
+                    <CityInput></CityInput>
+                    </div>
                     {this.state.data.length && <Carousel
                         autoplay
                         infinite
