@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import indexCss from "./index.module.scss";
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
  
 class CityInput extends Component {
+  
     state = {  }
     render() { 
+      const { history } = this.props
+      
         return (
             <div className={indexCss.city_input}>
               <div className={indexCss.input_wrap}>
                 <div
+                  onClick={()=>history.push('/cityList')}
                   className={indexCss.city_label}>
                   <span>{this.props.initCity.name}</span>
                   <i className={
@@ -32,7 +37,7 @@ class CityInput extends Component {
                   <span>请输入小区或地址</span>
                 </div>
               </div>
-              <div className={indexCss.map_point}
+              <div className={indexCss.map_point} onClick={()=>history.push('/map')}
               >
                 <i className={
                   [
@@ -53,4 +58,4 @@ const mapStateToProps = (state) => {
   }  
 }
 const connFunc = connect(mapStateToProps)
-export default connFunc(CityInput)
+export default connFunc(withRouter(CityInput))
