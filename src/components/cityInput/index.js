@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import indexCss from "./index.module.scss";
+import { connect } from 'react-redux';
  
 class CityInput extends Component {
     state = {  }
@@ -9,7 +10,7 @@ class CityInput extends Component {
               <div className={indexCss.input_wrap}>
                 <div
                   className={indexCss.city_label}>
-                  <span>广州</span>
+                  <span>{this.props.initCity.name}</span>
                   <i className={
                     [
                       "iconfont",
@@ -46,4 +47,10 @@ class CityInput extends Component {
     }
 }
 
-export default CityInput
+const mapStateToProps = (state) => {
+  return {
+    initCity: state.mapReducer.cityLocation
+  }  
+}
+const connFunc = connect(mapStateToProps)
+export default connFunc(CityInput)
