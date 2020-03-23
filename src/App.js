@@ -16,7 +16,7 @@ class App extends Component {
     return ( 
       <div className="App">
       {/* <TabBar></TabBar> */}
-      {this.props.initCity && 
+      {this.props.city && 
       <Router>
         <Route path='/home' component={Home}></Route>
         <Route exact path='/'>
@@ -33,7 +33,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    initCity: state.mapReducer.cityLocation.name
+    city: state.mapReducer.cityLocation.name
   }  
 }
 
