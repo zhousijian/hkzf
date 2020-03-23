@@ -68,7 +68,7 @@ class CityList extends Component {
                 {/* 城市列表 */}
                 {this.props.initCity && <div className={cityListScss.cityList}>
                     {this.state.list.map((v, i) => <div className={cityListScss.types} key={i}>
-                        <span>{v.name}</span>
+                        <div className={cityListScss.text}>{v.name}</div>
                         {v.values.map((vv, ii) => <div className={cityListScss.city} key={ii}>
                             {vv.name}
                         </div>)}

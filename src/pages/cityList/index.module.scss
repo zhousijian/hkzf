@@ -1,11 +1,20 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+}
 .cityList {
+    height: calc(100vh - 45px);
+    overflow: auto;
     .types {
-      span {
-  
+      .text {
+        padding: 10px;
+        font-size: 12px;
       }
   
       .city {
-  
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        color: black;
       }
     }
   }
