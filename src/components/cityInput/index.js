@@ -15,7 +15,7 @@ class CityInput extends Component {
                 <div
                   onClick={()=>history.push('/cityList')}
                   className={indexCss.city_label}>
-                  <span>{this.props.initCity.name}</span>
+                  <span>{this.props.initCity}</span>
                   <i className={
                     [
                       "iconfont",
@@ -54,7 +54,7 @@ class CityInput extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    initCity: state.mapReducer.cityLocation
+    initCity: state.mapReducer.cityLocation.name
   }  
 }
 const connFunc = connect(mapStateToProps)

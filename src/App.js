@@ -16,6 +16,7 @@ class App extends Component {
     return ( 
       <div className="App">
       {/* <TabBar></TabBar> */}
+      {this.props.initCity && 
       <Router>
         <Route path='/home' component={Home}></Route>
         <Route exact path='/'>
@@ -24,9 +25,16 @@ class App extends Component {
         <Route exact path='/cityList' component={Citylist}></Route>
         <Route exact path='/map' component={Map}></Route>
       </Router>
+      }
     </div>
      );
   }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    initCity: state.mapReducer.cityLocation.name
+  }  
 }
 
 // 操作全局数据
@@ -38,6 +46,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const conFunc = connect(null,mapDispatchToProps)
+const conFunc = connect(mapStateToProps,mapDispatchToProps)
 
 export default conFunc(App);
