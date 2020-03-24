@@ -88,6 +88,13 @@ class CityList extends Component {
         })
     }
 
+    // 右侧栏item的点击事件
+    handleClick= (i)=>{
+        this.setState({
+            currentIndex : i
+        })
+    }
+
     render() {
         return (
             <div>
@@ -114,13 +121,18 @@ class CityList extends Component {
                         rowHeight={this.rowHeight}
                         rowRenderer={this.rowRenderer}
                         onRowsRendered={this.onRowsRendered}
+                        scrollToIndex={this.state.currentIndex}
+                        scrollToAlignment='start'
                     />
 
                     <div className={cityListScss.zimu}>
                         {this.state.rightData.map((v,i) => 
                         <div 
                         className={[cityListScss.zimu_item,
-                        this.state.currentIndex === i ? cityListScss.active : ''].join(' ')} key={v}>{v}</div>)}
+                        this.state.currentIndex === i ? cityListScss.active : ''].join(' ')} 
+                        key={v} 
+                        onClick={this.handleClick.bind(this,i)}
+                        >{v}</div>)}
                     </div>
                 </div>
             </div>
