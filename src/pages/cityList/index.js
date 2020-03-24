@@ -3,14 +3,19 @@ import { NavBar, Icon } from 'antd-mobile';
 import { connect } from "react-redux";
 import axios from '../../request/axios';
 import cityListScss from "./index.module.scss";
-import {List} from 'react-virtualized';
+import { List } from 'react-virtualized';
 
 class CityList extends Component {
     state = {
         list: [],
+        rightData: [],
+        currentIndex : 0
     }
     async componentDidMount() {
+        // 全部数据
         let allCityData = []
+        // 右侧显示栏的信息
+        let rightData = ['#', '热']
 
         // 当前城市
         let { initCity } = this.props
@@ -42,6 +47,7 @@ class CityList extends Component {
                         { name: v.name }
                     ]
                 })
+                rightData.push(shouzimu)
             } else {
                 allCityData[index].values.push({
                     name: v.name
@@ -50,7 +56,8 @@ class CityList extends Component {
         })
 
         this.setState({
-            list: allCityData
+            list: allCityData,
+            rightData
         })
 
     }
@@ -61,17 +68,24 @@ class CityList extends Component {
             //     {this.state.list[index].name}
             // </div>
             <div className={cityListScss.types} key={key} style={style}>
-            <div className={cityListScss.text}>{this.state.list[index].name}</div>
-            {this.state.list[index].values.map((vv, ii) => <div className={cityListScss.city} key={ii}>
-                {vv.name}
-            </div>)}
-        </div>
+                <div className={cityListScss.text}>{this.state.list[index].name}</div>
+                {this.state.list[index].values.map((vv, ii) => <div className={cityListScss.city} key={ii}>
+                    {vv.name}
+                </div>)}
+            </div>
         );
     }
 
     // 行高度
-    rowHeight = ({index})=>{
+    rowHeight = ({ index }) => {
         return 40 + this.state.list[index].values.length * 40
+    }
+
+    // 滚动的函数
+    onRowsRendered = ({ startIndex })=>{
+        this.setState({
+            currentIndex : startIndex
+        })
     }
 
     render() {
@@ -99,7 +113,15 @@ class CityList extends Component {
                         rowCount={this.state.list.length}
                         rowHeight={this.rowHeight}
                         rowRenderer={this.rowRenderer}
+                        onRowsRendered={this.onRowsRendered}
                     />
+
+                    <div className={cityListScss.zimu}>
+                        {this.state.rightData.map((v,i) => 
+                        <div 
+                        className={[cityListScss.zimu_item,
+                        this.state.currentIndex === i ? cityListScss.active : ''].join(' ')} key={v}>{v}</div>)}
+                    </div>
                 </div>
             </div>
         );
