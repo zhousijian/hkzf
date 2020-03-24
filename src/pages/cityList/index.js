@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import axios from '../../request/axios';
 import cityListScss from "./index.module.scss";
 import { List } from 'react-virtualized';
+import { mapSwitchAddressAction } from "../../store/actionCreator";
 
 class CityList extends Component {
     state = {
@@ -69,7 +70,7 @@ class CityList extends Component {
             // </div>
             <div className={cityListScss.types} key={key} style={style}>
                 <div className={cityListScss.text}>{this.state.list[index].name}</div>
-                {this.state.list[index].values.map((vv, ii) => <div className={cityListScss.city} key={ii}>
+                {this.state.list[index].values.map((vv, ii) => <div className={cityListScss.city} key={ii} onClick={this.handleClickCity.bind(this,vv.name)}>
                     {vv.name}
                 </div>)}
             </div>
@@ -93,6 +94,12 @@ class CityList extends Component {
         this.setState({
             currentIndex : i
         })
+    }
+
+    // 左侧城市栏item的点击事件
+    handleClickCity = (actionCity)=>{
+        this.props.switchAddress(actionCity)
+        this.props.history.go(-1)
     }
 
     render() {
@@ -146,4 +153,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(CityList);
+const mapDispatchToProps = (dispatch) => {
+    return {
+      switchAddress(actionCity){
+        dispatch( mapSwitchAddressAction(actionCity) );
+      }
+    }
+  }
+
+export default connect(mapStateToProps,mapDispatchToProps)(CityList);
