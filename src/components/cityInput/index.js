@@ -3,19 +3,14 @@ import indexCss from "./index.module.scss";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
  
-class CityInput extends Component {
-  
-    state = {  }
-    render() { 
-      const { history } = this.props
-      
-        return (
-            <div className={indexCss.city_input}>
+const CityInput = React.memo((props)=>{
+  return (
+    <div className={indexCss.city_input}>
               <div className={indexCss.input_wrap}>
                 <div
-                  onClick={()=>history.push('/cityList')}
+                  onClick={()=>props.history.push('/cityList')}
                   className={indexCss.city_label}>
-                  <span>{this.props.initCity}</span>
+                  <span>{props.initCity}</span>
                   <i className={
                     [
                       "iconfont",
@@ -37,7 +32,7 @@ class CityInput extends Component {
                   <span>请输入小区或地址</span>
                 </div>
               </div>
-              <div className={indexCss.map_point} onClick={()=>history.push('/map')}
+              <div className={indexCss.map_point} onClick={()=>props.history.push('/map')}
               >
                 <i className={
                   [
@@ -48,9 +43,55 @@ class CityInput extends Component {
                 }></i>
               </div>
             </div>
-          );
-    }
-}
+  )
+})
+// class CityInput extends Component {
+
+//     render() { 
+//       const { history } = this.props
+      
+//         return (
+//             <div className={indexCss.city_input}>
+//               <div className={indexCss.input_wrap}>
+//                 <div
+//                   onClick={()=>history.push('/cityList')}
+//                   className={indexCss.city_label}>
+//                   <span>{this.props.initCity}</span>
+//                   <i className={
+//                     [
+//                       "iconfont",
+//                       "icon-arrow",
+//                       indexCss["icon-arrow"]
+//                     ].join(" ")
+//                   }></i>
+//                 </div>
+//                 <div className={indexCss.city_address}>
+//                   {/*  iconfont icon-seach 不能改 图标就无法显示 */}
+//                   {/*  */}
+//                   <i className={
+//                     [
+//                       "iconfont",
+//                       "icon-seach",
+//                       indexCss["icon-seach"]
+//                     ].join(" ")
+//                   }></i>
+//                   <span>请输入小区或地址</span>
+//                 </div>
+//               </div>
+//               <div className={indexCss.map_point} onClick={()=>history.push('/map')}
+//               >
+//                 <i className={
+//                   [
+//                     "iconfont",
+//                     "icon-map",
+//                     indexCss["icon-map"]
+//                   ].join(" ")
+//                 }></i>
+//               </div>
+//             </div>
+//           );
+//     }
+// }
 
 const mapStateToProps = (state) => {
   return {
