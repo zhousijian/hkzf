@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Hello, World</title>
+    <style type="text/css">
+      html {
+        height: 100%;
+      }
+
+      body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      #container {
+        height: 100%;
+      }
+    </style>
+    <script
+      type="text/javascript"
+      src="http://api.map.baidu.com/api?v=2.0&ak=ijCGWdrska19tHRFRtN6fy49kNV10eUC"
+    ></script>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <script type="text/javascript">
+      // 创建地图实例
+      var map = new window.BMap.Map("container");
+      // 创建点坐标
+      var point = new window.BMap.Point(113.404, 23.915);
+      // 初始化地图，设置中心点坐标和地图级别
+      map.centerAndZoom(point, 15);
+      // 填写控件-平移缩放控件
+      map.addControl(new window.BMap.NavigationControl());
+      map.addControl(new window.BMap.ScaleControl());
+      map.addControl(new window.BMap.GeolocationControl());
+
+      var opts = {
+        position: point, // 指定文本标注所在的地理位置
+        offset: new BMap.Size(30, -30) //设置文本偏移量
+      };
+      var label = new BMap.Label(
+        "香洲",
+        opts
+      ); // 创建文本标注对象
+      label.setStyle({
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#fff",
+        fontSize: "16px",
+        width: "100px",
+        height: "100px",
+        border: "2px solid #fff",
+        borderRadius: "50%",
+        backgroundColor: "#0eb56b",
+        // lineHeight: "20px",
+        fontFamily: "微软雅黑"
+      });
+      label.addEventListener('click',()=>{
+        console.log(111);
+      })
+      map.addOverlay(label);
+    </script>
+  </body>
+</html>
