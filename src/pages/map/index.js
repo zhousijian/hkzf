@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import mapScss from "./index.module.scss";
 import { connect } from "react-redux";
-import axios from "../../request/axios";
+import axios,{baseURL} from "../../request/axios";
 //AREA|9e787efa-d9fa-0ab2
 class Map extends Component {
+    constructor() {
+        super();
+        this.transitions = React.createRef();
+      }
+    state = {
+        list: [],
+        isShow : false
+    }
     // 返回参数的函数
     getParamsFunc = (function () {
         let arr = [{ num: 0, cls: 'mapText' }, { num: 1, cls: 'mapText' }, { num: 2, cls: 'fang' }]
@@ -14,6 +22,7 @@ class Map extends Component {
             return arr[index]
         }
     })()
+
     async componentDidMount() {
         const { cityName } = this.props
 
@@ -24,6 +33,14 @@ class Map extends Component {
         // 填写控件-平移缩放控件
         map.addControl(new window.BMap.NavigationControl());
         map.addControl(new window.BMap.ScaleControl());
+
+        //dragstart
+        map.addEventListener("dragstart",()=> {
+            this.transitions.current.style.height = 0
+            this.setState({
+                isShow : false,
+            })
+        })
 
         let id = (await axios.get('/area/info?name=' + cityName)).data.body.value
         // console.log(id);
@@ -131,15 +148,22 @@ class Map extends Component {
             });
             label.setContent(`<div class=${mapScss[getParams.cls]}><span>${v.label}</span><span>${v.count}套</span></div>`)
 
-            label.addEventListener('click', () => {
+            label.addEventListener('click', (e) => {
                 if (getParams.num < 2) {
                     arr = []
                     setTimeout(() => {
                         map.clearOverlays()
                     }, 0);
                     this.showMap(v.value, map)
-                }else {
-                    console.log('详情列表由下向上移动');
+                } else {
+                    // console.log('详情列表由下向上移动');
+                    // console.log(v);
+                    this.thirdFunc(v.value)
+                    this.setState({
+                        isShow : true
+                    })
+                    // console.log(this.transitions.current);
+                    this.transitions.current.style.height = '50vh'
                     
                 }
 
@@ -154,6 +178,15 @@ class Map extends Component {
 
     }
 
+    // 第三次点击覆盖物的函数
+    async thirdFunc(id) {
+        let { list } = (await axios.get('/houses?cityId=' + id)).data.body
+        // console.log(res);
+        this.setState({
+            list
+        })
+    }
+
     render() {
         return (
             <div className={mapScss.map}>
@@ -165,7 +198,27 @@ class Map extends Component {
                         onLeftClick={() => this.props.history.go(-1)}
                     >地图找房</NavBar>
                 </div>
-                <div id='container' className={mapScss.container}></div>
+                <div className={mapScss.content}>
+                    <div id='container' className={mapScss.container}></div>
+                    <div ref={this.transitions} className={mapScss.houses_list}>
+                        <div className={mapScss.houses_list_title}>
+                            <span>房屋列表</span>
+                            <span>更多房源</span>
+                        </div>
+                        <div className={mapScss.houses_list_content}>
+                            {this.state.list.map((v,i) => <div className={mapScss.house_item} key={i}>
+                                <div className={mapScss.house_img}> <img src={baseURL+v.houseImg} alt="" /> </div>
+                                <div className={mapScss.house_info}>
+                            <div className={mapScss.house_list_title}>{v.title}</div>
+                                    <div className={mapScss.house_desc}>{v.desc}</div>
+                            <div className={mapScss.house_tags}>{v.tags.map((vv,ii)=><span key={ii}>{vv}</span>)}</div>
+                                    <div className={mapScss.house_price_row}> <span>{v.price} 元/月 </span>  </div>
+                                </div>
+                            </div>)}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         );
     }
