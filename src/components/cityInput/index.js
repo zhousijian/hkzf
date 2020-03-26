@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import indexCss from "./index.module.scss";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';

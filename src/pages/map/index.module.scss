@@ -8,5 +8,28 @@
     .container {
         width: 100%;
         height: calc(100vh - 45px);
+        .mapText {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          background-color: #0eb56a;
+          border: 2px solid #fff;
+          transform: translate(-50%,-50%);
+          span {
+            color: #fff;
+          }
+        }
+        .fang {
+          padding: 5px;
+          background-color: #0eb56a;
+          color: #fff;
+          span {
+            margin: 0 5px;
+          }
+        }
     }
   }
