@@ -1,0 +1,97 @@
+.filter_panel {
+  .filter {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    .filter_item {
+    }
+    .active {
+      color: #21b97a;
+    }
+  }
+
+  .pickerView {
+    .pickerView_item {
+      .pickerView_status {
+        display: flex;
+        justify-content: center;
+        border-top: 1px solid #ccc;
+        span {
+          padding: 10px 0;
+          text-align: center;
+        }
+        span:nth-child(1) {
+          flex: 1;
+          background-color: #fff;
+          color: #21b97a;
+        }
+        span:nth-child(2) {
+          flex: 2;
+          background-color: #21b97a;
+          color: #fff;
+        }
+      }
+    }
+
+    .sifting {
+      z-index: 10000;
+      position: fixed;
+      width: 80%;
+      height: 100vh;
+      top: 0;
+      right: 0;
+      background-color: #fff;
+      .sifting_content {
+        overflow: auto;
+        height: calc(100vh - 50px);
+      }
+      .sifting_type {
+        padding: 20px 15px;
+        .sifting_type_title {
+          font-size: 16px;
+          padding-bottom: 20px;
+        }
+
+        .sifting_type_all {
+          display: flex;
+          flex-wrap: wrap;
+          .sifting_type_item {
+            margin: 0 18px 15px 0;
+            width: 80px;
+            text-align: center;
+            line-height: 30px;
+            height: 30px;
+            border: 1px solid #eee;
+            font-size: 13px;
+          }
+        }
+      }
+      .pickerView_status {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        border-top: 1px solid #ccc;
+        width: 80vw;
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 50px;
+          font-size: 18px;
+        }
+        span:nth-child(1) {
+          width: 30%;
+          background-color: #fff;
+          color: #21b97a;
+        }
+        span:nth-child(2) {
+          width: 70%;
+          background-color: #21b97a;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

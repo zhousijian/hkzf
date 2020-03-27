@@ -2,19 +2,16 @@ import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import CityInput from '../../components/cityInput'
 import indexCss from "./index.module.scss";
+import FilterPanel from "./filterPanel";
 
 class List extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
     render() {
         return (
             <div className={indexCss.found_list}>
                 {/* 头部 */}
                 <div className={indexCss.header}>
                     <NavBar
-                        style={{backgroundColor:'#ddd'}}
+                        style={{ backgroundColor: '#ddd' }}
                         mode="light"
                         icon={<Icon type="left" />}
                         onLeftClick={() => this.props.history.go(-1)}
@@ -23,7 +20,12 @@ class List extends Component {
                         <CityInput></CityInput>
                     </div>
                 </div>
-                {/*  */}
+
+                {/* filter过滤条件和PickerView 选择器 */}
+                <div className={indexCss.filterPicker}>
+                    <FilterPanel></FilterPanel>
+                </div>
+
             </div>
         );
     }
