@@ -1,0 +1,31 @@
+.index {
+  z-index: 10000;
+  position: fixed;
+  width: 80%;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+}
+
+.index_out {
+    right : 0;
+    transform: translateX(100%);
+    animation: index_right_animation 1s .2s forwards;
+}
+
+.index_in {
+    right: 0;
+    animation: index_right_animation 1s .2s forwards;
+}
+
+@keyframes index_right_animation {
+    0% {
+        right: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        right: 0;
+        transform: translateX(0);
+    }
+}

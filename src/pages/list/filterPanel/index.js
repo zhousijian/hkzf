@@ -3,8 +3,13 @@ import indexCss from "./index.module.scss";
 import { PickerView } from 'antd-mobile';
 import { connect } from "react-redux";
 import axios from "../../../request/axios";
+import SliderBar from "../../../components/sliderBar";
 
 class FilterPanel extends Component {
+  constructor() {
+    super();
+    this.quxiao = React.createRef();
+  }
   state = {
     filterTitle: [
       {
@@ -88,7 +93,8 @@ class FilterPanel extends Component {
         </div>
       </div>
     } else if (current === 3) {
-      return <div className={indexCss.sifting}>
+      return <SliderBar>
+      <div ref={this.quxiao} className={indexCss.sifting}>
         <div className={indexCss.sifting_content}>
         {sifting.map((v,i) => <div className={indexCss.sifting_type} key={i}>
           <div className={indexCss.sifting_type_title}>{v.title}</div>
@@ -100,6 +106,7 @@ class FilterPanel extends Component {
           <span>确定</span>
         </div>
       </div>
+      </SliderBar>
     } else {
       return <></>
     }

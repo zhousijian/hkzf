@@ -35,13 +35,7 @@
     }
 
     .sifting {
-      z-index: 10000;
-      position: fixed;
-      width: 80%;
-      height: 100vh;
-      top: 0;
-      right: 0;
-      background-color: #fff;
+      
       .sifting_content {
         overflow: auto;
         height: calc(100vh - 50px);
