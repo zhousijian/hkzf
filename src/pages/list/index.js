@@ -58,7 +58,6 @@ class Lists extends Component {
         // console.log(clientHeight);
         // console.log(scrollHeight);
         // console.log(scrollTop);
-
         if (scrollHeight - clientHeight - scrollTop < 5) {
             if (this.state.list.length !== 0) {
                 if (!this.ssLoadding) {
@@ -69,12 +68,14 @@ class Lists extends Component {
                         this.getData()
                     }
                 }
-
             }
-
-
         }
+    }
 
+    submitFilter = (value)=>{
+        console.log(value);
+        // this.FilterParams = value
+        // this.getData()
     }
 
     render() {
@@ -96,7 +97,7 @@ class Lists extends Component {
 
                 {/* filter过滤条件和PickerView 选择器 */}
                 <div className={indexCss.filterPicker}>
-                    <FilterPanel></FilterPanel>
+                    <FilterPanel submitFilter={this.submitFilter}></FilterPanel>
                 </div>
 
 

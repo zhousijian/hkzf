@@ -217,7 +217,18 @@ class FilterPanel extends Component {
       price,
       more
     }
-    console.log(filterParams);
+
+    for(const key in filterParams){
+      if(['null',undefined,''].includes(filterParams[key])){
+        delete filterParams[key]
+      }
+    }
+
+
+    // 子传父事件
+    this.props.submitFilter(filterParams)
+    this.setState({current : -1})
+    // console.log(filterParams);
 
   }
 
