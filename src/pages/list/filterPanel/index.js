@@ -6,10 +6,6 @@ import axios from "../../../request/axios";
 import SliderBar from "../../../components/sliderBar";
 
 class FilterPanel extends Component {
-  constructor() {
-    super();
-    this.quxiao = React.createRef();
-  }
   state = {
     filterTitle: [
       {
@@ -62,6 +58,18 @@ class FilterPanel extends Component {
     //     info: []
     //   }
     // ]
+
+    // 筛选的条件组合
+    screenGroup: [
+      // 区域
+      [],
+      // 方式
+      [],
+      // 租金
+      [],
+      // 筛选
+      []
+    ]
   }
 
   async componentDidMount() {
@@ -100,30 +108,34 @@ class FilterPanel extends Component {
   }
 
   pickerViewFunc = () => {
-    const { filterTitle, current, filterAllData } = this.state //sifting
+    const { filterTitle, current, filterAllData, screenGroup } = this.state //sifting
     if ([0, 1, 2].includes(current)) {
       return <div className={indexCss.pickerView_item}>
         <PickerView
           data={filterAllData[current]}
           cols={filterTitle[current].cols}
+          // onChange与value是互相影响缺一不可
+          onChange={this.onChangeFunc}
+          value={screenGroup[current]}
         />
         <div className={indexCss.pickerView_status}>
           <span onClick={() => this.setState({ current: -1 })}>取消</span>
-          <span>确定</span>
+          <span onClick={this.handleClickConfirm}>确定</span>
         </div>
       </div>
     } else if (current === 3) {
       return <SliderBar>
-        <div ref={this.quxiao} className={indexCss.sifting}>
+        <div className={indexCss.sifting}>
           <div className={indexCss.sifting_content}>
             {filterAllData[current].map((v, i) => <div className={indexCss.sifting_type} key={i}>
               <div className={indexCss.sifting_type_title}>{v.title}</div>
-              <div className={indexCss.sifting_type_all}>{v.info.map((vv, ii) => <div className={indexCss.sifting_type_item} key={ii}>{vv.label}</div>)}</div>
+              <div className={indexCss.sifting_type_all}>{v.info.map((vv, ii) => <div
+                className={[indexCss.sifting_type_item, screenGroup[current].includes(vv.label) ? indexCss.active : ''].join(' ')} key={ii} onClick={this.handleClickScre.bind(this, vv.label)}>{vv.label}</div>)}</div>
             </div>)}
           </div>
           <div className={indexCss.pickerView_status}>
             <span onClick={() => this.setState({ current: -1 })}>清除</span>
-            <span>确定</span>
+            <span onClick={this.handleClickConfirm}>确定</span>
           </div>
         </div>
       </SliderBar>
@@ -132,26 +144,103 @@ class FilterPanel extends Component {
     }
   }
 
+  // pickerview组件的onChange事件
+  onChangeFunc = (value) => {
+    const { screenGroup, current } = this.state
+    // console.clear()
+    // console.log(value);
+    screenGroup[current] = value
+    this.setState({
+      screenGroup
+    })
+
+    // console.clear()
+    // console.log(screenGroup);
+
+
+
+    // 错误的想法
+    // if (current === 0) {
+    //   screenGroup[0][0] = value[0]
+    //   screenGroup[0][1] = value[1]
+    //   screenGroup[0][2] = value[2]
+    //   if ([undefined, 'null'].includes(screenGroup[0][2])) {
+    //     screenGroup[0].splice(2, 1)
+    //   }
+    // } else {
+    //   if (current === 1) {
+    //     screenGroup[current][0] = 'rentType'
+    //   }else {
+    //     screenGroup[current][0] = 'price'
+    //   }
+    //   screenGroup[current][1] = value[0]
+    // }
+
+    // // console.log(this.state.screenGroup);
+  }
+
+
+  // 点击第四筛选的条件触发事件
+  handleClickScre = (value) => {
+    const { screenGroup, current } = this.state
+    // console.log(value);
+    let index = screenGroup[current].findIndex(v => v === value)
+    if (index === -1) {
+      screenGroup[current].push(value)
+    } else {
+      screenGroup[current].splice(index, 1)
+    }
+    // console.log(screenGroup);
+    this.setState({
+      screenGroup
+    })
+  }
+
+  // 点击确定按钮触发的事件
+  handleClickConfirm = () => {
+    // console.log(this.state.screenGroup);
+    const { screenGroup, current } = this.state
+
+    const areaOrSubway = screenGroup[0][0]
+    // 是否有第三个数据，如果没有，就取第二个
+    const areaOrSubwayValue = screenGroup[0][2] === 'null' ? screenGroup[0][1] : screenGroup[0][2]
+
+    const rentType = screenGroup[1][0]
+
+    const price = screenGroup[2][0]
+
+    const more = screenGroup[3].join(',')
+
+    let filterParams = {
+      [areaOrSubway] : areaOrSubwayValue,
+      rentType,
+      price,
+      more
+    }
+    console.log(filterParams);
+
+  }
+
   render() {
 
     const { filterTitle, current } = this.state
     return (
       <div className={indexCss.filter_panel}>
-        
+
         <div className={current !== 3 ? indexCss.maxFilter : ''}>
           {/* 条件过滤 */}
-        <div className={indexCss.filter}>
-          {filterTitle.map((v, i) => <div className={[indexCss.filter_item, i === current ? indexCss.active : ''].join(" ")} key={i} onClick={() => this.setState({ current: i })}>{v.text}</div>)}
-        </div>
+          <div className={indexCss.filter}>
+            {filterTitle.map((v, i) => <div className={[indexCss.filter_item, i === current ? indexCss.active : ''].join(" ")} key={i} onClick={() => this.setState({ current: i })}>{v.text}</div>)}
+          </div>
 
-        {/* 条件面板 */}
-        <div className={indexCss.pickerView}>
-          {this.pickerViewFunc()}
-        </div>
+          {/* 条件面板 */}
+          <div className={indexCss.pickerView}>
+            {this.pickerViewFunc()}
+          </div>
         </div>
 
         {/* 遮罩层 */}
-        {[0,1,2,3].includes(current) && <div className={indexCss.masked} onClick={()=>this.setState({current : -1})}></div>}
+        {[0, 1, 2, 3].includes(current) && <div className={indexCss.masked} onClick={() => this.setState({ current: -1 })}></div>}
       </div>
     );
   }
