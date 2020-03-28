@@ -40,26 +40,28 @@ class FilterPanel extends Component {
       // 方式
       [],
       // 租金
+      [],
+      // 筛选
       []
     ],
-    sifting: [
-      {
-        title: '户型',
-        info: []
-      },
-      {
-        title: '朝向',
-        info: []
-      },
-      {
-        title: '楼层',
-        info: []
-      },
-      {
-        title: '房屋亮点',
-        info: []
-      }
-    ]
+    // sifting: [
+    //   {
+    //     title: '户型',
+    //     info: []
+    //   },
+    //   {
+    //     title: '朝向',
+    //     info: []
+    //   },
+    //   {
+    //     title: '楼层',
+    //     info: []
+    //   },
+    //   {
+    //     title: '房屋亮点',
+    //     info: []
+    //   }
+    // ]
   }
 
   async componentDidMount() {
@@ -71,12 +73,30 @@ class FilterPanel extends Component {
     filterAllData[0] = [conditions.area, conditions.subway]
     filterAllData[1] = conditions.rentType
     filterAllData[2] = conditions.price
+    filterAllData[3] = [
+      {
+        title: '户型',
+        info: conditions.roomType
+      },
+      {
+        title: '朝向',
+        info: conditions.oriented
+      },
+      {
+        title: '楼层',
+        info: conditions.floor
+      },
+      {
+        title: '房屋亮点',
+        info: conditions.characteristic
+      }
+    ]
 
     // 第四个（筛选）
-    sifting[0].info = conditions.roomType
-    sifting[1].info = conditions.oriented
-    sifting[2].info = conditions.floor
-    sifting[3].info = conditions.characteristic
+    // sifting[0].info = conditions.roomType
+    // sifting[1].info = conditions.oriented
+    // sifting[2].info = conditions.floor
+    // sifting[3].info = conditions.characteristic
   }
 
   pickerViewFunc = () => {
@@ -94,18 +114,18 @@ class FilterPanel extends Component {
       </div>
     } else if (current === 3) {
       return <SliderBar>
-      <div ref={this.quxiao} className={indexCss.sifting}>
-        <div className={indexCss.sifting_content}>
-        {sifting.map((v,i) => <div className={indexCss.sifting_type} key={i}>
-          <div className={indexCss.sifting_type_title}>{v.title}</div>
-          <div className={indexCss.sifting_type_all}>{v.info.map((vv,ii) => <div className={indexCss.sifting_type_item} key={ii}>{vv.label}</div>)}</div>
-        </div>)}
+        <div ref={this.quxiao} className={indexCss.sifting}>
+          <div className={indexCss.sifting_content}>
+            {filterAllData[current].map((v, i) => <div className={indexCss.sifting_type} key={i}>
+              <div className={indexCss.sifting_type_title}>{v.title}</div>
+              <div className={indexCss.sifting_type_all}>{v.info.map((vv, ii) => <div className={indexCss.sifting_type_item} key={ii}>{vv.label}</div>)}</div>
+            </div>)}
+          </div>
+          <div className={indexCss.pickerView_status}>
+            <span onClick={() => this.setState({ current: -1 })}>清除</span>
+            <span>确定</span>
+          </div>
         </div>
-        <div className={indexCss.pickerView_status}>
-          <span onClick={() => this.setState({ current: -1 })}>清除</span>
-          <span>确定</span>
-        </div>
-      </div>
       </SliderBar>
     } else {
       return <></>
