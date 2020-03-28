@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import mapScss from "./index.module.scss";
 import { connect } from "react-redux";
-import axios,{baseURL} from "../../request/axios";
+import axios from "../../request/axios";
+import MapHouseItem from "../../components/mapHouseItem";
 //AREA|9e787efa-d9fa-0ab2
 class Map extends Component {
     constructor() {
@@ -206,15 +207,7 @@ class Map extends Component {
                             <span>更多房源</span>
                         </div>
                         <div className={mapScss.houses_list_content}>
-                            {this.state.list.map((v,i) => <div className={mapScss.house_item} key={i}>
-                                <div className={mapScss.house_img}> <img src={baseURL+v.houseImg} alt="" /> </div>
-                                <div className={mapScss.house_info}>
-                            <div className={mapScss.house_list_title}>{v.title}</div>
-                                    <div className={mapScss.house_desc}>{v.desc}</div>
-                            <div className={mapScss.house_tags}>{v.tags.map((vv,ii)=><span key={ii}>{vv}</span>)}</div>
-                                    <div className={mapScss.house_price_row}> <span>{v.price} 元/月 </span>  </div>
-                                </div>
-                            </div>)}
+                            {this.state.list.map((v,i) => <MapHouseItem item={v} key={i}></MapHouseItem>)}
                         </div>
                     </div>
                 </div>

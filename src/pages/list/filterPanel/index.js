@@ -241,6 +241,7 @@ class FilterPanel extends Component {
 
         {/* 遮罩层 */}
         {[0, 1, 2, 3].includes(current) && <div className={indexCss.masked} onClick={() => this.setState({ current: -1 })}></div>}
+
       </div>
     );
   }
