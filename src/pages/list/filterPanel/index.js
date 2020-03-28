@@ -66,7 +66,7 @@ class FilterPanel extends Component {
 
   async componentDidMount() {
     const { cityName } = this.props
-    const { filterAllData, sifting } = this.state
+    const { filterAllData } = this.state //, sifting
     const id = (await axios.get('/area/info?name=' + cityName)).data.body.value
     const conditions = (await axios.get("/houses/condition?id=" + id)).data.body;
     // console.log(conditions);
@@ -100,7 +100,7 @@ class FilterPanel extends Component {
   }
 
   pickerViewFunc = () => {
-    const { filterTitle, current, filterAllData, sifting } = this.state
+    const { filterTitle, current, filterAllData } = this.state //sifting
     if ([0, 1, 2].includes(current)) {
       return <div className={indexCss.pickerView_item}>
         <PickerView
@@ -137,7 +137,9 @@ class FilterPanel extends Component {
     const { filterTitle, current } = this.state
     return (
       <div className={indexCss.filter_panel}>
-        {/* 条件过滤 */}
+        
+        <div className={current !== 3 ? indexCss.maxFilter : ''}>
+          {/* 条件过滤 */}
         <div className={indexCss.filter}>
           {filterTitle.map((v, i) => <div className={[indexCss.filter_item, i === current ? indexCss.active : ''].join(" ")} key={i} onClick={() => this.setState({ current: i })}>{v.text}</div>)}
         </div>
@@ -146,6 +148,10 @@ class FilterPanel extends Component {
         <div className={indexCss.pickerView}>
           {this.pickerViewFunc()}
         </div>
+        </div>
+
+        {/* 遮罩层 */}
+        {[0,1,2,3].includes(current) && <div className={indexCss.masked} onClick={()=>this.setState({current : -1})}></div>}
       </div>
     );
   }

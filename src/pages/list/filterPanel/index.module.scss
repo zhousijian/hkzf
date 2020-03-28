@@ -1,4 +1,9 @@
 .filter_panel {
+  .maxFilter {
+    position: relative;
+    z-index: 1001;
+    background-color: #fff;
+  }
   .filter {
     display: flex;
     justify-content: space-around;
@@ -87,5 +92,15 @@
         }
       }
     }
+  }
+  .masked {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0.4;
   }
 }
