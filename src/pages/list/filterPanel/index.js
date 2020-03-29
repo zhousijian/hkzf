@@ -130,7 +130,7 @@ class FilterPanel extends Component {
             {filterAllData[current].map((v, i) => <div className={indexCss.sifting_type} key={i}>
               <div className={indexCss.sifting_type_title}>{v.title}</div>
               <div className={indexCss.sifting_type_all}>{v.info.map((vv, ii) => <div
-                className={[indexCss.sifting_type_item, screenGroup[current].includes(vv.label) ? indexCss.active : ''].join(' ')} key={ii} onClick={this.handleClickScre.bind(this, vv.label)}>{vv.label}</div>)}</div>
+                className={[indexCss.sifting_type_item, screenGroup[current].includes(vv.value) ? indexCss.active : ''].join(' ')} key={ii} onClick={this.handleClickScre.bind(this, vv.value)}>{vv.label}</div>)}</div>
             </div>)}
           </div>
           <div className={indexCss.pickerView_status}>

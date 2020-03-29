@@ -73,9 +73,14 @@ class Lists extends Component {
     }
 
     submitFilter = (value)=>{
-        console.log(value);
-        // this.FilterParams = value
-        // this.getData()
+        // console.log(value);
+        this.setState({
+            list : []
+        })
+        this.FilterParams = value
+        this.Params.start = 1
+        this.Params.end = 20
+        this.getData()
     }
 
     render() {

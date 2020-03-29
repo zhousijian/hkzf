@@ -1,4 +1,5 @@
 .house_item {
+    height: 120px;
     padding: 10px;
     display: flex;
     border-bottom: 1px dashed #ccc;
@@ -7,8 +8,8 @@
       align-items: center;
       flex: 2;
       img {
-        width: 90%;
-        height: 90%;
+        width: 100%;
+        height: 100%;
       }
     }
     .house_info {
